@@ -1,14 +1,19 @@
-FROM httpd:latest
+# start by pulling the python image
+FROM python:3.8-alpine
 
-# Just my name who wrote this file
-MAINTAINER LeyonThampi
+# copy the requirements file into the image
+COPY ./requirements.txt /app/requirements.txt
 
-# Copy your custom index file in the htdocs repo
-COPY ./index.html /usr/local/apache2/htdocs/
+# switch working directory
+WORKDIR /app
 
-# To tell docker to expose this port
-EXPOSE 80
+# install the dependencies and packages in the requirements file
+RUN pip install -r requirements.txt
 
-# The Base command, This command should be used to start the container
-# Remember, A Container is a Process.As long as the base process (started by base cmd) is live the Container will be ALIVE.
-CMD ["httpd", "-D", "FOREGROUND"]
+# copy every content from the local file to the image
+COPY . /app
+
+# configure the container to run in an executed manner
+ENTRYPOINT [ "python" ]
+
+CMD ["view.py" ]
