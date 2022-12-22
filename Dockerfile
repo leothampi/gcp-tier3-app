@@ -1,7 +1,7 @@
 FROM httpd:latest
 
 # Just my name who wrote this file
-MAINTAINER Samy
+MAINTAINER LeyonThampi
 
 # Copy your custom index file in the htdocs repo
 COPY ./index.html /usr/local/apache2/htdocs/
